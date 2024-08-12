@@ -178,9 +178,9 @@ class Seg3dLossless(nn.Module):
                         is_boundary = (self.smooth_conv7x7(is_boundary.float()) > 0)[0, 0]
                     else:
                         is_boundary = (self.smooth_conv3x3(is_boundary.float()) > 0)[0, 0]
-                    is_boundary[coords_accum[0, :, 2],
-                                coords_accum[0, :, 1], 
-                                coords_accum[0, :, 0]] = False
+                    is_boundary[coords_accum[0, :, 2].long(),
+                                coords_accum[0, :, 1].long(), 
+                                coords_accum[0, :, 0].long()] = False
                     point_coords = is_boundary.permute(2, 1, 0).nonzero().unsqueeze(0)
                     point_indices = (
                         point_coords[:, :, 2] * H * W + 
@@ -282,9 +282,9 @@ class Seg3dLossless(nn.Module):
                         is_boundary = (self.smooth_conv3x3(is_boundary.float()) > 0)[0, 0]
                         # is_boundary = is_boundary[0, 0]
 
-                    is_boundary[coords_accum[0, :, 2],
-                                coords_accum[0, :, 1], 
-                                coords_accum[0, :, 0]] = False
+                    is_boundary[coords_accum[0, :, 2].long(),
+                                coords_accum[0, :, 1].long(), 
+                                coords_accum[0, :, 0].long()] = False
                     point_coords = is_boundary.permute(2, 1, 0).nonzero().unsqueeze(0)
                     point_indices = (
                         point_coords[:, :, 2] * H * W + 
